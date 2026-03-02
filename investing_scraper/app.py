@@ -166,10 +166,18 @@ else:
             * **Enlaces a Fuentes:** Esta tabla incluye enlaces interactivos (color azul). Haz clic en el nombre del festivo para abrir el Calendario de Investing.com, o en cualquier precio/ticker para ver su gráfico histórico en *Yahoo Finance*.
             """)
         
-        col1, col2, col3 = st.columns(3)
+        col_filter, col1, col2, col3 = st.columns(4)
+        with col_filter:
+            all_countries = sorted(list(set(ADR_COUNTRY_MAP.values())))
+            selected_filter_countries = st.multiselect("Filtrar Tickers por País", options=all_countries, default=[])
+            
         with col1:
-            all_adrs = sorted(list(ADR_COUNTRY_MAP.keys()))
-            selected_adr = st.selectbox("Selecciona un Ticker de ADR", all_adrs)
+            if selected_filter_countries:
+                filtered_adrs = sorted([adr for adr, c in ADR_COUNTRY_MAP.items() if c in selected_filter_countries])
+            else:
+                filtered_adrs = sorted(list(ADR_COUNTRY_MAP.keys()))
+                
+            selected_adr = st.selectbox("Selecciona un Ticker de ADR", filtered_adrs)
         with col2:
             days_to_analyze = st.slider("Días a analizar (T-N y T+N)", min_value=1, max_value=5, value=1)
         with col3:
