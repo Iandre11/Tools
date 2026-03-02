@@ -1,0 +1,6 @@
+streamlit
+pandas
+yfinance
+tabulate
+bs4
+playwright
