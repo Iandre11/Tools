@@ -92,7 +92,7 @@ ADR_ORIGINAL_MAP = {
 @st.cache_data
 def load_data():
     try:
-        df = pd.read_csv("holidays_data.csv")
+        df = pd.read_csv("investing_scraper/holidays_data.csv")
         df['Date_Parsed'] = pd.to_datetime(df['Date'], errors='coerce')
         df['Year'] = df['Date_Parsed'].dt.year
         df['Month'] = df['Date_Parsed'].dt.month
