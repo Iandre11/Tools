@@ -143,15 +143,13 @@ else:
 
         if price_history_df.empty:
             st.warning(
-                "No existe `price_history.csv` o está vacío. Ejecuta "
-                "`python3 investing_scraper/download_price_history.py` para descargar "
-                "los precios de Yahoo Finance y vuelve a cargar la app."
+                "No hay historico local disponible. Ejecuta el script de descarga "
+                "y vuelve a cargar la app."
             )
         else:
             price_min_date = price_history_df["Date"].min().date()
             price_max_date = price_history_df["Date"].max().date()
             st.caption(
-                f"Fuente de precios: `{PRICE_HISTORY_FILE.name}` | "
                 f"{price_history_df['Ticker'].nunique()} tickers | "
                 f"{price_min_date} -> {price_max_date}"
             )
@@ -172,7 +170,6 @@ else:
             * **T-N (Días Previos):** Los `N` días de bolsa abiertos *antes* del festivo.
             * **T+N (Días Posteriores):** Los `N` días de bolsa abiertos *después* del festivo.
             * **Retorno (T-N a T+N):** Representa tu rentabilidad potencial porcentual (%) si hubieras comprado acciones en el cierre de T-N y las hubieras vendido al final del día T+N.
-            * **Fuente de precios:** Esta pestaña usa el CSV local `price_history.csv`, generado previamente desde Yahoo Finance.
             """
             )
 
@@ -215,8 +212,7 @@ else:
                     st.info(
                         f"**ADR:** [{selected_adr}](https://finance.yahoo.com/quote/{selected_adr}/history/) | "
                         f"**Ticker Local:** {local_ticker_display} | "
-                        f"**Mercado Local:** {FLAGS_MAP.get(country_of_origin, country_of_origin)} | "
-                        f"**Fuente de precios:** `{PRICE_HISTORY_FILE.name}`"
+                        f"**Mercado Local:** {FLAGS_MAP.get(country_of_origin, country_of_origin)}"
                     )
 
                     country_holidays_df = holidays_df[
